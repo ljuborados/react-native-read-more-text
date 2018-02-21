@@ -10,7 +10,7 @@ export default class ReadMore extends React.Component {
     measured: false,
     shouldShowReadMore: false,
     showAllText: false,
-  }
+  };
 
   async componentDidMount() {
     await nextFrameAsync();
@@ -23,10 +23,11 @@ export default class ReadMore extends React.Component {
     // Get the height of the text now that number of lines has been set
     const limitedHeight = await measureHeightAsync(this._text);
 
+    // Send true if text will be truncated, false if not
+    this.props.onReady && this.props.onReady(fullHeight > limitedHeight);
+
     if (fullHeight > limitedHeight) {
-      this.setState({shouldShowReadMore: true}, () => {
-        this.props.onReady && this.props.onReady();
-      });
+      this.setState({shouldShowReadMore: true});
     }
   }
 
